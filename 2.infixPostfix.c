@@ -19,17 +19,7 @@ int isOperand(char c) {
     return isalpha(c) || isdigit(c);
 }
 
-// Function to reverse the string
-void reverse(char* expr) {
-    int n = strlen(expr);
-    for (int i = 0; i < n / 2; i++) {
-        char temp = expr[i];
-        expr[i] = expr[n - i - 1];
-        expr[n - i - 1] = temp;
-    }
-}
-
-// Function to convert infix to postfix
+// Function to convert infix expression to postfix
 void infixToPostfix(char* infix, char* postfix) {
     int top = -1;
     char stack[100];  // Stack to hold operators
@@ -70,43 +60,18 @@ void infixToPostfix(char* infix, char* postfix) {
     postfix[k] = '\0';  // Null-terminate the postfix expression
 }
 
-// Function to convert infix to prefix
-void infixToPrefix(char* infix, char* prefix) {
-    // Step 1: Reverse the infix expression
-    reverse(infix);
-
-    // Step 2: Replace '(' with ')' and vice versa
-    for (int i = 0; infix[i] != '\0'; i++) {
-        if (infix[i] == '(') {
-            infix[i] = ')';
-        } else if (infix[i] == ')') {
-            infix[i] = '(';
-        }
-    }
-
-    // Step 3: Convert the modified infix expression to postfix
-    char postfix[100];
-    infixToPostfix(infix, postfix);
-
-    // Step 4: Reverse the postfix expression to get the prefix expression
-    reverse(postfix);
-
-    // Copy the result to the prefix array
-    strcpy(prefix, postfix);
-}
-
 int main() {
-    char infix[100], prefix[100];
+    char infix[100], postfix[100];
 
     // Input infix expression
     printf("Enter infix expression: ");
     scanf("%s", infix);
 
-    // Convert to prefix
-    infixToPrefix(infix, prefix);
+    // Convert to postfix
+    infixToPostfix(infix, postfix);
 
-    // Output prefix expression
-    printf("Prefix expression: %s\n", prefix);
+    // Output postfix expression
+    printf("Postfix expression: %s\n", postfix);
 
     return 0;
 }
